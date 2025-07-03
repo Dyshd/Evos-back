@@ -18,6 +18,7 @@ const store = new MongoDBStore({
 /* 1-ENTRANCE */
 const app = express();
 app.use(express.static(path.join(__dirname, "public"))); //Middle DP => public ochiqlayabdi
+app.use("/uploads", express.static("./uploads"));
 app.use(express.urlencoded({extended: true}));  // MiddleWare DP => Traditional API 
 app.use(express.json()); //Middle DP => Rest API
 app.use(cookieParser()); // MiddleWare DP => Cookie Parser
