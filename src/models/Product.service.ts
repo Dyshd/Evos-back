@@ -10,6 +10,8 @@ import {
 import ProductModel from "../schema/Product.model";
 import { T } from "../libs/types/common";
 import { measureMemory } from "vm";
+import { ObjectId } from "mongoose";
+import mongoose from "mongoose/types";
 
 class ProductService {
   private readonly productModel;
@@ -23,8 +25,8 @@ class ProductService {
 
     if (inquiry.productCollection)
       match.productCollection = inquiry.productCollection;
-    if(inquiry.search){
-      match.productName = {$regex: new RegExp(inquiry.search, "i")};
+    if (inquiry.search) {
+      match.productName = { $regex: new RegExp(inquiry.search, "i") };
     }
     const sort: T =
       inquiry.order === "productPrice"
@@ -41,6 +43,20 @@ class ProductService {
       .exec();
     if (!result) throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND);
 
+    return result;
+  }
+
+  public async getProduct(
+    memberId: ObjectId | null,
+    id: string
+  ): Promise<Product> {
+    const productId = shapeIntoMongooseObjectId(id);
+
+    let result = await this.productModel
+      .findOne({ _id: productId, roductStatus: ProductStatus.PROCESS })
+      .exec();
+    if (!result) throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND);
+    
     return result;
   }
 
