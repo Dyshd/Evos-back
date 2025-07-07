@@ -12,12 +12,17 @@ import { T } from "../libs/types/common";
 import { measureMemory } from "vm";
 import { ObjectId } from "mongoose";
 import mongoose from "mongoose/types";
+import ViewService from "./View.service";
+import { ViewGroup } from "../libs/enums/view.enum";
+import { ViewInput } from "../libs/types/view";
 
 class ProductService {
   private readonly productModel;
+  public viewService;
 
   constructor() {
     this.productModel = ProductModel;
+    this.viewService = new ViewService();
   }
   /**SPA */
   public async getProducts(inquiry: ProductInquiry): Promise<Product[]> {
@@ -56,7 +61,27 @@ class ProductService {
       .findOne({ _id: productId, roductStatus: ProductStatus.PROCESS })
       .exec();
     if (!result) throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND);
-    
+
+    if (memberId) {
+      const input: ViewInput = {
+        memberId: memberId,
+        viewRefId: productId,
+        ViewGroup: ViewGroup.PRODUCT,
+      };
+      const existView = await this.viewService.checkViewExistence(input);
+      console.log("exsist:", !!existView)
+      if (!existView) {
+        await this.viewService.insertMemberView(input);
+
+        result = await this.productModel
+          .findByIdAndUpdate(
+            productId,
+            { $inc: { productViews: +1 } },
+            { new: true }
+          )
+          .exec();
+      }
+    }
     return result;
   }
 
