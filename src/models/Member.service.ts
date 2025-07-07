@@ -16,7 +16,10 @@ class MemberService {
   constructor() {
     this.memberModel = MemberModel;
   }
-  /* SPA*/
+  /* SPA*/ 
+
+  
+  
 
   public async getRestaurant(): Promise<Member> {
     const result = await this.memberModel
