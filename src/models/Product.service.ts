@@ -58,7 +58,7 @@ class ProductService {
     const productId = shapeIntoMongooseObjectId(id);
 
     let result = await this.productModel
-      .findOne({ _id: productId, roductStatus: ProductStatus.PROCESS })
+      .findOne({ _id: productId, productStatus: ProductStatus.PROCESS })
       .exec();
     if (!result) throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND);
 
@@ -88,13 +88,13 @@ class ProductService {
   /**SSR */
   public async createNewProduct(input: ProductInput): Promise<Product> {
     try {
-      console.log("kildi");
+      // console.log("kildi");
       return await this.productModel.create(input);
     } catch (err) {
       console.error("Error, model:createNewProduct ", err);
       throw new Errors(HttpCode.BAD_REQUEST, Message.CREATE_FAILED);
     }
-  }
+  } 
 
   public async getAllProducts(): Promise<Product[]> {
     // string => objectid

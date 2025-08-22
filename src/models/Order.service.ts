@@ -12,13 +12,14 @@ import Errors, { HttpCode, Message } from "../libs/Errors";
 import { ObjectId } from "mongoose";
 import MemberService from "./Member.service";
 import { OrderStatus } from "../libs/enums/order.enum";
+import { T } from "../libs/types/common";
 
 class OrderService {
   static updateOrder(member: Member, input: OrderUpdateInput) {
     throw new Error("Method not implemented.");
   }
   private readonly orderModel;
-  private readonly orderItemModel;
+  private readonly orderItemModel; 
   private readonly memberService;
 
   constructor() {
@@ -73,7 +74,7 @@ class OrderService {
     inquiry: OrderInquiry
   ): Promise<Order[]> {
     const memberId = shapeIntoMongooseObjectId(member._id);
-    const matches = { memberId: memberId, orderStatus: inquiry.orderStatus };
+    const matches: T = { memberId: memberId, orderStatus: inquiry.orderStatus };
 
     const result = await this.orderModel
       .aggregate([

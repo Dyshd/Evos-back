@@ -96,6 +96,7 @@ memberController.getMemberDetail = async (
   }
 };
 
+
 memberController.updateMember = async (req: ExtendedRequest, res: Response) => {
   try {
     console.log("updateMember");
@@ -161,3 +162,4 @@ export default memberController;
 function next() {
   throw new Error("Function not implemented.");
 }
+

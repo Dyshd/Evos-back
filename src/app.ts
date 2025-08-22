@@ -1,3 +1,4 @@
+import cors from "cors"
 import express from "express";
 import path from "path";
 import router from "./router";
@@ -21,6 +22,7 @@ app.use(express.static(path.join(__dirname, "public"))); //Middle DP => public o
 app.use("/uploads", express.static("./uploads"));
 app.use(express.urlencoded({extended: true}));  // MiddleWare DP => Traditional API 
 app.use(express.json()); //Middle DP => Rest API
+app.use(cors({credentials: true, origin: true}))
 app.use(cookieParser()); // MiddleWare DP => Cookie Parser
 app.use(morgan(MORGAN_FORMAT)); //Loglani formatini morgan formata 
 /* 2-SESSIONS */

@@ -8,14 +8,14 @@ export interface Member {
   memberType: MemberType;
   memberStatus: MemberStatus;
   memberNick: string;
-  memberPhone: string;
+  memberPhone: string; 
   memberPassword?: string;
   memberAddress?: string;
   memberDesc?: string;
   memberImage?: string;
   memberPoints: number;
   createdAt: Date;
-  updateAT: Date;
+  updateAt: Date;
 }
 
 export interface MemberInput {
