@@ -82,7 +82,7 @@ productController.createNewProduct = async (
     });
 
     await productService.createNewProduct(data);
-    // console.log("kildi2");
+    
 
     res.send(
       `<script> alert("Sucessful creation"); window.location.replace('/admin/product/all') </script>`

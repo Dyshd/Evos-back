@@ -20,6 +20,10 @@ const store = new MongoDBStore({
 const app = express();
 app.use(express.static(path.join(__dirname, "public"))); //Middle DP => public ochiqlayabdi
 app.use("/uploads", express.static("./uploads"));
+// uploads papkani to‘g‘ri ochish uchun
+// app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
+// app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use(express.urlencoded({extended: true}));  // MiddleWare DP => Traditional API 
 app.use(express.json()); //Middle DP => Rest API
 app.use(cors({credentials: true, origin: true}))
