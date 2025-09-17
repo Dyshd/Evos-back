@@ -22,7 +22,10 @@ orderController.createOrder = async (req: ExtendedRequest, res: Response) => {
 };
 
 orderController.getMyOrders = async (req: ExtendedRequest, res: Response) => {
+ 
   try {
+    console.log("req.member:", req.member);
+    console.log("req.query:", req.query);
     console.log("getMyOrders");
     const { page, limit, orderStatus } = req.query; //destraction
 

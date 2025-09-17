@@ -48,6 +48,7 @@ class OrderService {
       const orderId = newOrder._id;
       console.log("orderId:", newOrder._id);
       await this.recordOrderItem(orderId, input);
+
       return newOrder;
     } catch (err) {
       console.log("Error, model:createOrder", err);
@@ -79,7 +80,7 @@ class OrderService {
     const result = await this.orderModel
       .aggregate([
         { $match: matches },
-        { $sort: { updateAt: -1 } },
+        { $sort: { updatedAt: -1 } },
         { $skip: (inquiry.page - 1) * inquiry.limit },
         { $limit: inquiry.limit },
         {

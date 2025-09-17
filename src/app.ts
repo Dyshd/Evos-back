@@ -29,7 +29,7 @@ app.use(express.json()); //Middle DP => Rest API
 app.use(cors({credentials: true, origin: true}))
 app.use(cookieParser()); // MiddleWare DP => Cookie Parser
 app.use(morgan(MORGAN_FORMAT)); //Loglani formatini morgan formata 
-/* 2-SESSIONS */
+/* 2-SESSIONS */  
 
 app.use(
     session({
