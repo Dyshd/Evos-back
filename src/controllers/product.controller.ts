@@ -37,9 +37,9 @@ productController.getProducts = async (req: Request, res: Response) => {
 productController.getProduct = async (req: ExtendedRequest, res: Response) => {
   try {
     console.log("getProduct");
-    const {id}= req.params
+    const { id } = req.params
     const memberId = req.member?._id ?? null,
-    result = await productService.getProduct(memberId, id);
+      result = await productService.getProduct(memberId, id);
 
     res.status(HttpCode.OK).json(result);
   } catch (err) {
@@ -82,7 +82,7 @@ productController.createNewProduct = async (
     });
 
     await productService.createNewProduct(data);
-    
+
 
     res.send(
       `<script> alert("Sucessful creation"); window.location.replace('/admin/product/all') </script>`

@@ -1,4 +1,4 @@
-import {ObjectId} from "mongoose"
+import { ObjectId } from "mongoose"
 import {
   ProductCollection,
   ProductSize,
@@ -17,11 +17,16 @@ export interface Product {
   productDesc?: string;
   productImages: string[];
   productViews: number;
+
+  // ✅ Qo‘shimcha flaglar
+  isBreakfast?: boolean;
+  isCombo?: boolean;
+
   createdAt: Date;
   updatedAt: Date;
 }
-export interface ProductInquiry{
-  order:string;
+export interface ProductInquiry {
+  order: string;
   page: number;
   limit: number;
   productCollection?: ProductCollection;
@@ -29,6 +34,7 @@ export interface ProductInquiry{
 }
 
 export interface ProductInput {
+  isBreakfastCombo: any;
   productStatus?: ProductStatus;
   productCollection: ProductCollection;
   productNme: string;
@@ -39,22 +45,25 @@ export interface ProductInput {
   productDesc?: string;
   productImages?: string[];
   productViews?: number;
+
+  isBreakfast?: boolean; // Breakfast mahsuloti
+  isCombo?: boolean;     // Combo
 }
 
 
 
 export interface ProductUpdateInput {
   _id: ObjectId;
-    productStatus?: ProductStatus;
-    productCollection?: ProductCollection;
-    productNme?: string;
-    productPrice?: number;
-    productLeftCount?: number;
-    productSize?: ProductSize;
-    productVolume?: number;
-    productDesc?: string;
-    productImages?: string[];
-    productViews?: number;
-  }
-  
-  
+  productStatus?: ProductStatus;
+  productCollection?: ProductCollection;
+  productNme?: string;
+  productPrice?: number;
+  productLeftCount?: number;
+  productSize?: ProductSize;
+  productVolume?: number;
+  productDesc?: string;
+  productImages?: string[];
+  productViews?: number;
+}
+
+

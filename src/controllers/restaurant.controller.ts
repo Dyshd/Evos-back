@@ -44,29 +44,46 @@ restaurantController.processSignup = async (
   res: Response
 ) => {
   try {
-    console.log("processSignup");
+    console.log("POST /admin/signup");
+
+    // 1) Fayl tekshiruvi
+    if (!req.file) {
+      console.error("❌ No file uploaded!");
+    }
+
     const file = req.file;
-    if(!file) throw new Errors(HttpCode.BAD_REQUEST, Message.SOMETHING_WENT_WRONG);
 
+    // 2) Bodydan ma'lumot olish
+    const newMember: MemberInput = {
+      ...req.body,
+      memberImage: file.path.replace(/\\/g, "/"),
+      memberType: MemberType.RESTAURANT,
+    };
 
-    const newMember: MemberInput = req.body;
-    newMember.memberImage = file?.path.replace(/\\/g,"/");
-    newMember.memberType = MemberType.RESTAURANT;
+    // 3) Bazaga yozish
     const result = await memberService.processSignup(newMember);
 
+    // 4) Sessiya saqlash
     req.session.member = result;
-    req.session.save(function () {
-      res.redirect("/admin/product/all")
+    req.session.save(() => {
+      return res.redirect("/admin/product/all");
     });
+
   } catch (err) {
-    console.log("Error, processSignup:", err);
+    console.error("Error, processSignup:", err);
+
     const message =
-      err instanceof Errors ? err.message : Message.SOMETHING_WENT_WRONG;
-    res.send(
-      `<script> alert("${message}"); window.location.relace('/admin/signup') </script>`
-    );
+      err instanceof Errors ? err.message : "Something went wrong!";
+
+    return res.send(`
+      <script>
+        alert("${message}");
+        window.location.replace('/admin/signup');
+      </script>
+    `);
   }
 };
+
 
 restaurantController.processLogin = async (
   req: AdminRequest,
