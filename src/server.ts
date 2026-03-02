@@ -1,6 +1,9 @@
 import dotenv from "dotenv";         // (1) ModuleJS - Burak
 // const dotevn = require("doten")   // (2) CommonJS - Reja
-dotenv.config();
+dotenv.config({
+    path: process.env.NODE_ENV === "production" ? ".env.production" : ".env",
+}
+);
 
 import mongoose from 'mongoose';
 import server from "./app";
