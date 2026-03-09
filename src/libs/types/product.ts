@@ -9,7 +9,7 @@ export interface Product {
   _id: ObjectId;
   productStatus: ProductStatus;
   productCollection: ProductCollection;
-  productNme: string;
+  productName: string;
   productPrice: number;
   productLeftCount: number;
   productSize: ProductSize;
@@ -37,7 +37,7 @@ export interface ProductInput {
   isBreakfastCombo: any;
   productStatus?: ProductStatus;
   productCollection: ProductCollection;
-  productNme: string;
+  productName: string;
   productPrice: number;
   productLeftCount: number;
   productSize?: ProductSize;
@@ -56,7 +56,7 @@ export interface ProductUpdateInput {
   _id: ObjectId;
   productStatus?: ProductStatus;
   productCollection?: ProductCollection;
-  productNme?: string;
+  productName?: string;
   productPrice?: number;
   productLeftCount?: number;
   productSize?: ProductSize;

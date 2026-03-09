@@ -7,7 +7,7 @@ export interface View {
   memberId: ObjectId;
   viewRefId: ObjectId;
   createdAt: Date;
-  updateAt: Date;
+  updatedAt: Date;
 }
 
 export interface ViewInput {
